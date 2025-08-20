@@ -150,6 +150,17 @@ enum List<T> {
 let a: List<i32> = List::Cons(7, Box::new(List::Cons(13, Box::new(List::Nil))));
 ```
 
+## Equality of types
+
+Equality and subtyping of types is generally structural. If the outermost type constructors are the same,
+the fields are pairwise related. The only exceptions from this rule are higher ranked types and alias types
+
+higher ranked types:
+uwu, instantiate binder with placeholders, eq
+
+aliases
+normalized to a rigid type, then equated as normal
+
 [Array]: types/array.md
 [Boolean]: types/boolean.md
 [Closures]: types/closure.md
