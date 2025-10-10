@@ -50,6 +50,10 @@ Combinators are higher-order functions that apply only functions and
 earlier defined combinators to provide a result from its arguments.
 They can be used to manage control flow in a modular fashion.
 
+### Concurrent program
+
+A concurrent program is a program that can perform multiple tasks or processes at the same time, possibly overlapping in execution.
+
 ### Crate
 
 A crate is the unit of compilation and linking. There are different [types of
