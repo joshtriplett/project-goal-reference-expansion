@@ -64,6 +64,10 @@ may be made visible to other crates by marking them as public in the crate
 root, including through [paths] of public modules.
 [More][crate].
 
+### Data race
+
+A data race occurs when multiple threads attempt to access the same shared memory location concurrently.
+
 ### Dispatch
 
 Dispatch is the mechanism to determine which specific version of code is actually run when it involves polymorphism. Two major forms of dispatch are static dispatch and dynamic dispatch. Rust supports dynamic dispatch through the use of [trait objects][type.trait-object].
