@@ -131,6 +131,8 @@
 
 - [The Rust runtime](runtime.md)
 
+- [Concurrency](concurrency.md)
+
 - [Appendices](appendices.md)
     - [Grammar summary](grammar.md)
     - [Macro Follow-Set Ambiguity Formal Specification](macro-ambiguity.md)
