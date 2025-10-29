@@ -145,6 +145,12 @@ This is not affected by applied type arguments. `struct Foo` is considered local
 `Vec<Foo>` is not. `LocalType<ForeignType>` is local. Type aliases do not
 affect locality.
 
+### Marker trait
+A trait that has no associated items (no methods, no associated types, and no constants)
+and is used only to mark that a type has a particular property.
+Implementing a marker trait does not change a type’s behavior at runtime;
+it simply communicates to the compiler and to other code that the type satisfies some condition.
+
 ### Module
 
 A module is a container for zero or more [items]. Modules are organized in a

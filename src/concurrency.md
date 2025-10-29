@@ -12,11 +12,12 @@ r[concurrency.send-and-sync]
 r[concurrency.send-and-sync.intro]
 The [`Send`] and [`Sync`] traits are [unsafe traits] used by the Rust type system to track which types can be safely used across thread boundaries.
 
-These traits are marker traits with no methods. Implementing them asserts that a type has the intrinsic properties required for safe concurrent use. The compiler automatically implements these traits for most types when possible, but they can also be implemented manually. Providing an incorrect manual implementation can cause [undefined behavior].
+These traits are [marker traits] with no methods. Implementing them asserts that a type has the intrinsic properties required for safe concurrent use. The compiler automatically implements these traits for most types when possible, but they can also be implemented manually. Providing an incorrect manual implementation can cause [undefined behavior].
 
 [concurrent programs]: glossary.md#concurrent-program
 [data races]: glossary.md#data-race
 [`Send`]: special-types-and-traits.md#Send
 [`Sync`]: special-types-and-traits.md#Sync
 [unsafe traits]: items/traits.md#unsafe-traits
-[undefined behavior]: glossary.md#undefined_behavior
+[marker traits]: glossary.md#marker-trait
+[undefined behavior]: glossary.md#undefined-behavior
