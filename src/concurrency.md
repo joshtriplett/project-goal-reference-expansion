@@ -66,7 +66,7 @@ fn main() {
 
 [concurrent programs]: glossary.md#concurrent-program
 [data races]: glossary.md#data-race
-[`Send`]: special-types-and-traits.md#Send
-[`Sync`]: special-types-and-traits.md#Sync
+[`Send`]: special-types-and-traits.md#send
+[`Sync`]: special-types-and-traits.md#sync
 [unsafe traits]: items/traits.md#unsafe-traits
 [marker traits]: glossary.md#marker-trait
