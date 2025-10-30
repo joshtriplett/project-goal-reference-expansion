@@ -12,7 +12,57 @@ r[concurrency.send-and-sync]
 r[concurrency.send-and-sync.intro]
 The [`Send`] and [`Sync`] traits are [unsafe traits] used by the Rust type system to track which types can be safely used across thread boundaries.
 
-These traits are [marker traits] with no methods. Implementing them asserts that a type has the intrinsic properties required for safe concurrent use. The compiler automatically implements these traits for most types when possible, but they can also be implemented manually. Providing an incorrect manual implementation can cause [undefined behavior].
+These traits are [marker traits] with no methods. Implementing them (whether manually or via the compiler's automatic implementation) asserts that a type has the intrinsic properties required for safe concurrent use.
+
+Library functions that require types that can be sent across threads require [`Send`].
+```rust
+// This will compile successfully
+// A type is `Send` if it can be safely transferred to another thread.
+fn assert_send<T: Send>() {}
+
+fn main() {
+    assert_send::<i32>(); // primitive types are Send
+    assert_send::<Vec<u8>>(); // Vec<T> is Send if T is Send
+}
+```
+
+```rust,compile_fail
+// This will not compile
+// A type containing `Rc<T>` is not `Send`.
+use std::rc::Rc;
+
+fn assert_send<T: Send>() {}
+
+fn main() {
+    let _x = Rc::new(1);
+    assert_send::<Rc<i32>>(); //~ error[E0277] `Rc<i32>` cannot be sent between threads safely
+}
+```
+
+Library functions that require types that can be accessed concurrently from multiple threads require [`Sync`].
+```rust
+// This will compile successfully
+// A type is `Sync` if it can be safely referenced from multiple threads.
+fn assert_sync<T: Sync>() {}
+
+fn main() {
+    assert_sync::<i32>(); // i32 is Sync
+    assert_sync::<&'static str>(); // string slices are Sync
+    assert_sync::<std::sync::Arc<i32>>(); // Arc<T> is Sync if T is Sync
+}
+```
+
+```rust,compile_fail
+// This will not compile
+// A type containing `Cell<T>` is not `Sync`.
+use std::cell::Cell;
+
+fn assert_sync<T: Sync>() {}
+
+fn main() {
+    assert_sync::<Cell<i32>>(); //~ error[E0277] `*const i32` cannot be shared between threads safely
+}
+```
 
 [concurrent programs]: glossary.md#concurrent-program
 [data races]: glossary.md#data-race
@@ -20,4 +70,3 @@ These traits are [marker traits] with no methods. Implementing them asserts that
 [`Sync`]: special-types-and-traits.md#Sync
 [unsafe traits]: items/traits.md#unsafe-traits
 [marker traits]: glossary.md#marker-trait
-[undefined behavior]: glossary.md#undefined-behavior
