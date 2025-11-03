@@ -10,7 +10,7 @@ r[concurrency.send-and-sync]
 ## Send and Sync
 
 r[concurrency.send-and-sync.intro]
-The [`Send`] and [`Sync`] traits are [unsafe traits] used by the Rust type system to track which types can be safely used across thread boundaries.
+The [`Send`] and [`Sync`] [auto traits] are [unsafe traits] used by the Rust type system to track which types can be safely used across thread boundaries.
 
 These traits are [marker traits] with no methods. Implementing them (whether manually or via the compiler's automatic implementation) asserts that a type has the intrinsic properties required for safe concurrent use.
 
@@ -26,16 +26,29 @@ fn main() {
 }
 ```
 
+Something that awaits something that isn't sync will produce a [`core::future::Future`] that is not [`Send`].
 ```rust,compile_fail
 // This will not compile
 // A type containing `Rc<T>` is not `Send`.
 use std::rc::Rc;
 
-fn assert_send<T: Send>() {}
+// This async function awaits something that uses an Rc (which is !Send)
+async fn not_send_future() {
+    let rc = Rc::new(42);
+
+    // Simulate an async operation that captures `rc`
+    let _ = async {
+        println!("{}", rc);
+    }.await;
+}
+
+// A helper function that requires its argument to be Send
+fn assert_send<T: Send>(_: T) {}
 
 fn main() {
-    let _x = Rc::new(1);
-    assert_send::<Rc<i32>>(); //~ error[E0277] `Rc<i32>` cannot be sent between threads safely
+    let fut = not_send_future();
+
+    assert_send(fut); //~ error[E0277] `*const i32` cannot be shared between threads safely
 }
 ```
 
@@ -68,5 +81,7 @@ fn main() {
 [data races]: glossary.md#data-race
 [`Send`]: special-types-and-traits.md#send
 [`Sync`]: special-types-and-traits.md#sync
+[auto traits]: special-types-and-traits.md#auto-traits
 [unsafe traits]: items/traits.md#unsafe-traits
 [marker traits]: glossary.md#marker-trait
+[`core::future::Future`]: https://doc.rust-lang.org/stable/core/future/trait.Future.html
