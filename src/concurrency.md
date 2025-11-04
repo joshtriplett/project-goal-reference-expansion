@@ -81,7 +81,7 @@ r[concurrency.atomics]
 ## Atomics
 
 r[concurrency.atomics.intro]
-Atomic types allow multiple threads to safely read and write shared values without using explicit locks by providing atomic operations such as atomic loads, stores, and read-modify-write with configurable memory ordering.
+[Atomic types] allow multiple threads to safely read and write shared values without using explicit locks by providing atomic operations such as atomic loads, stores, and read-modify-write with configurable memory ordering.
 
 ```rust
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -114,3 +114,4 @@ fn main() {
 [unsafe traits]: items/traits.md#unsafe-traits
 [marker traits]: glossary.md#marker-trait
 [`core::future::Future`]: https://doc.rust-lang.org/stable/core/future/trait.Future.html
+[Atomic types]: glossary.md#atomic-types

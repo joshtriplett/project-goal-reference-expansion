@@ -30,6 +30,10 @@ items are defined in [implementations] and declared in [traits]. Only
 functions, constants, and type aliases can be associated. Contrast to a [free
 item].
 
+### Atomic types
+
+Atomic types provide primitive shared-memory communication between threads, and are the building blocks of other concurrent types.
+
 ### Blanket implementation
 
 Any implementation where a type appears [uncovered](#uncovered-type). `impl<T> Foo
