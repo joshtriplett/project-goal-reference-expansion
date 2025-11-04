@@ -127,6 +127,24 @@ fn main() {
 }
 ```
 
+r[concurrency.atomics.mapping]
+The following table lists the atomic types and the corresponding primitive types they represent:
+
+| Primitive Type | Atomic Type                           |
+| -------------- | ------------------------------------- |
+| `bool`         | [`core::sync::atomic::AtomicBool`]    |
+| `i8`           | [`core::sync::atomic::AtomicI8`]      |
+| `i16`          | [`core::sync::atomic::AtomicI16`]     |
+| `i32`          | [`core::sync::atomic::AtomicI32`]     |
+| `i64`          | [`core::sync::atomic::AtomicI64`]     |
+| `isize`        | [`core::sync::atomic::AtomicIsize`]   |
+| `u8`           | [`core::sync::atomic::AtomicU8`]      |
+| `u16`          | [`core::sync::atomic::AtomicU16`]     |
+| `u32`          | [`core::sync::atomic::AtomicU32`]     |
+| `u64`          | [`core::sync::atomic::AtomicU64`]     |
+| `usize`        | [`core::sync::atomic::AtomicUsize`]   |
+| `*mut T`       | [`core::sync::atomic::AtomicPtr<T>`]  |
+
 [concurrent programs]: glossary.md#concurrent-program
 [data races]: glossary.md#data-race
 [`Send`]: special-types-and-traits.md#send
@@ -136,3 +154,15 @@ fn main() {
 [marker traits]: glossary.md#marker-trait
 [`core::future::Future`]: https://doc.rust-lang.org/stable/core/future/trait.Future.html
 [Atomic types]: glossary.md#atomic-types
+[`core::sync::atomic::AtomicBool`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicBool.html
+[`core::sync::atomic::AtomicI8`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicI8.html
+[`core::sync::atomic::AtomicI16`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicI16.html
+[`core::sync::atomic::AtomicI32`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicI32.html
+[`core::sync::atomic::AtomicI64`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicI64.html
+[`core::sync::atomic::AtomicIsize`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicIsize.html
+[`core::sync::atomic::AtomicU8`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicU8.html
+[`core::sync::atomic::AtomicU16`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicU16.html
+[`core::sync::atomic::AtomicU32`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicU32.html
+[`core::sync::atomic::AtomicU64`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicU64.html
+[`core::sync::atomic::AtomicUsize`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicUsize.html
+[`core::sync::atomic::AtomicPtr<T>`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicPtr.html
