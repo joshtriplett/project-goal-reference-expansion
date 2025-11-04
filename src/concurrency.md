@@ -106,6 +106,27 @@ fn main() {
 }
 ```
 
+r[concurrency.atomics.thread-safety]
+Atomic operations are guaranteed to be indivisible: no other thread can observe a value half-written or perform a conflicting update in the middle of an atomic operation. Correct use of atomic types can prevent [data races], but misuse may still cause higher-level concurrency bugs such as deadlocks or livelocks. 
+
+```rust
+use std::sync::atomic::{AtomicUsize, Ordering};
+use std::thread;
+
+fn main() {
+    static VALUE: AtomicUsize = AtomicUsize::new(0);
+
+    let t1 = thread::spawn(|| VALUE.store(1, Ordering::Relaxed));
+    let t2 = thread::spawn(|| VALUE.store(2, Ordering::Relaxed));
+
+    t1.join().unwrap();
+    t2.join().unwrap();
+
+    // VALUE is guaranteed to be either 1 or 2 — never a corrupted mix.
+    println!("{}", VALUE.load(Ordering::Relaxed));
+}
+```
+
 [concurrent programs]: glossary.md#concurrent-program
 [data races]: glossary.md#data-race
 [`Send`]: special-types-and-traits.md#send
