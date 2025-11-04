@@ -77,6 +77,35 @@ fn main() {
 }
 ```
 
+r[concurrency.atomics]
+## Atomics
+
+r[concurrency.atomics.intro]
+Atomic types allow multiple threads to safely read and write shared values without using explicit locks by providing atomic operations such as atomic loads, stores, and read-modify-write with configurable memory ordering.
+
+```rust
+use std::sync::atomic::{AtomicUsize, Ordering};
+use std::thread;
+
+fn main() {
+    static COUNTER: AtomicUsize = AtomicUsize::new(0);
+
+    let handles: Vec<_> = (0..10)
+        .map(|_| {
+            thread::spawn(|| {
+                for _ in 0..1000 {
+                    COUNTER.fetch_add(1, Ordering::Relaxed);
+                }
+            })
+        })
+        .collect();
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+}
+```
+
 [concurrent programs]: glossary.md#concurrent-program
 [data races]: glossary.md#data-race
 [`Send`]: special-types-and-traits.md#send
