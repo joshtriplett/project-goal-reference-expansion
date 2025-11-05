@@ -107,7 +107,7 @@ fn main() {
 ```
 
 r[concurrency.atomics.thread-safety]
-Atomic operations are guaranteed to be indivisible: no other thread can observe a value half-written or perform a conflicting update in the middle of an atomic operation. Correct use of atomic types can prevent [data races], but misuse may still cause higher-level concurrency bugs such as deadlocks or livelocks. 
+Atomic operations are guaranteed to be indivisible: no other thread can observe a value half-written or perform a conflicting update in the middle of an atomic operation. Correct use of atomic types can prevent [data races], but misuse may still cause higher-level concurrency bugs such as deadlocks or livelocks.
 
 ```rust
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -122,7 +122,7 @@ fn main() {
     t1.join().unwrap();
     t2.join().unwrap();
 
-    // VALUE is guaranteed to be either 1 or 2 — never a corrupted mix.
+    // VALUE is guaranteed to be either 1 or 2, never a corrupted mix.
     println!("{}", VALUE.load(Ordering::Relaxed));
 }
 ```
@@ -144,6 +144,33 @@ The following table lists the atomic types and the corresponding primitive types
 | `u64`          | [`core::sync::atomic::AtomicU64`]     |
 | `usize`        | [`core::sync::atomic::AtomicUsize`]   |
 | `*mut T`       | [`core::sync::atomic::AtomicPtr<T>`]  |
+
+r[concurrency.atomics.usage]
+Atomic types are [`Sync`], meaning references to them can be safely shared between threads. Using atomic operations correctly may require careful reasoning about memory ordering.
+
+```rust
+use std::sync::atomic::{
+    AtomicBool, AtomicI8, AtomicI16, AtomicI32, AtomicI64,
+    AtomicIsize, AtomicU8, AtomicU16, AtomicU32, AtomicU64,
+    AtomicUsize,
+};
+
+fn assert_sync<T: Sync>() {}
+
+fn main() {
+    assert_sync::<AtomicBool>();
+    assert_sync::<AtomicI8>();
+    assert_sync::<AtomicI16>();
+    assert_sync::<AtomicI32>();
+    assert_sync::<AtomicI64>();
+    assert_sync::<AtomicIsize>();
+    assert_sync::<AtomicU8>();
+    assert_sync::<AtomicU16>();
+    assert_sync::<AtomicU32>();
+    assert_sync::<AtomicU64>();
+    assert_sync::<AtomicUsize>();
+}
+```
 
 [concurrent programs]: glossary.md#concurrent-program
 [data races]: glossary.md#data-race
