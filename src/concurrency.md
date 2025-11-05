@@ -106,6 +106,8 @@ fn main() {
 }
 ```
 
+The semantics of these operations are defined by Rust’s [memory model].
+
 r[concurrency.atomics.thread-safety]
 Atomic operations are guaranteed to be indivisible: no other thread can observe a value half-written or perform a conflicting update in the middle of an atomic operation. Correct use of atomic types can prevent [data races], but misuse may still cause higher-level concurrency bugs such as deadlocks or livelocks.
 
@@ -181,6 +183,7 @@ fn main() {
 [marker traits]: glossary.md#marker-trait
 [`core::future::Future`]: https://doc.rust-lang.org/stable/core/future/trait.Future.html
 [Atomic types]: glossary.md#atomic-types
+[memory model]: memory-model.md#memory-model
 [`core::sync::atomic::AtomicBool`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicBool.html
 [`core::sync::atomic::AtomicI8`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicI8.html
 [`core::sync::atomic::AtomicI16`]: https://doc.rust-lang.org/stable/core/sync/atomic/struct.AtomicI16.html
